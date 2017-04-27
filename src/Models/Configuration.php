@@ -1,15 +1,15 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use Brazidev\Ticketit\Traits\ContentEllipse;
+use Brazidev\Brazidesk\Traits\ContentEllipse;
 
 class Configuration extends Model
 {
     use ContentEllipse;
 
-    public $table = 'ticketit_settings';
+    public $table = 'brazidesk_settings';
 
     public $fillable = [
     'lang',

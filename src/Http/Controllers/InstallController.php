@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\User;
@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Setting;
-use Brazidev\Ticketit\Seeds\SettingsTableSeeder;
-use Brazidev\Ticketit\Seeds\TicketitTableSeeder;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Setting;
+use Brazidev\Brazidesk\Seeds\SettingsTableSeeder;
+use Brazidev\Brazidesk\Seeds\BrazideskTableSeeder;
 
 class InstallController extends Controller
 {
@@ -27,11 +27,11 @@ class InstallController extends Controller
 
     public function publicAssets()
     {
-        $public = $this->allFilesList(public_path('vendor/ticketit'));
-        $assets = $this->allFilesList(base_path('vendor/brazidev/ticketit/src/Public'));
+        $public = $this->allFilesList(public_path('vendor/brazidesk'));
+        $assets = $this->allFilesList(base_path('vendor/brazidev/brazidesk/src/Public'));
         if ($public !== $assets) {
             Artisan::call('vendor:publish', [
-                '--provider' => 'Brazidev\\Ticketit\\TicketitServiceProvider',
+                '--provider' => 'Brazidev\\Brazidesk\\BrazideskServiceProvider',
                 '--tag'      => ['public'],
             ]);
         }
@@ -48,7 +48,7 @@ class InstallController extends Controller
         if (count($this->migrations_tables) == count($this->inactiveMigrations())
             || in_array('2015_10_08_123457_create_settings_table', $this->inactiveMigrations())
         ) {
-            $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
+            $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('brazidesk::install.another-file')];
             $inactive_migrations = $this->inactiveMigrations();
             // if Laravel v5.2 or 5.3
             if (version_compare(app()->version(), '5.2.0', '>=')) {
@@ -57,7 +57,7 @@ class InstallController extends Controller
                 $users_list = User::lists('name', 'id')->toArray();
             }
 
-            return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
+            return view('brazidesk::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
         }
 
         // other than that, Upgrade to a new version, installing new migrations and new settings slugs
@@ -65,10 +65,10 @@ class InstallController extends Controller
             $inactive_migrations = $this->inactiveMigrations();
             $inactive_settings = $this->inactiveSettings();
 
-            return view('ticketit::install.upgrade', compact('inactive_migrations', 'inactive_settings'));
+            return view('brazidesk::install.upgrade', compact('inactive_migrations', 'inactive_settings'));
         }
-        \Log::emergency('Ticketit needs upgrade, admin should login and visit ticketit-install to activate the upgrade');
-        throw new \Exception('Ticketit needs upgrade, admin should login and visit ticketit install route');
+        \Log::emergency('Brazidesk needs upgrade, admin should login and visit brazidesk-install to activate the upgrade');
+        throw new \Exception('Brazidesk needs upgrade, admin should login and visit brazidesk install route');
     }
 
     /*
@@ -86,7 +86,7 @@ class InstallController extends Controller
         $this->initialSettings($master);
         $admin_id = $request->admin_id;
         $admin = User::find($admin_id);
-        $admin->ticketit_admin = true;
+        $admin->brazidesk_admin = true;
         $admin->save();
 
         return redirect('/'.Setting::grab('main_route'));
@@ -103,8 +103,8 @@ class InstallController extends Controller
 
             return redirect('/'.Setting::grab('main_route'));
         }
-        \Log::emergency('Ticketit upgrade path access: Only admin is allowed to upgrade');
-        throw new \Exception('Ticketit upgrade path access: Only admin is allowed to upgrade');
+        \Log::emergency('Brazidesk upgrade path access: Only admin is allowed to upgrade');
+        throw new \Exception('Brazidesk upgrade path access: Only admin is allowed to upgrade');
     }
 
     /*
@@ -116,7 +116,7 @@ class InstallController extends Controller
         $inactive_migrations = $this->inactiveMigrations();
         if ($inactive_migrations) { // If a migration is missing, do the migrate
             Artisan::call('vendor:publish', [
-                '--provider' => 'Brazidev\\Ticketit\\TicketitServiceProvider',
+                '--provider' => 'Brazidev\\Brazidesk\\BrazideskServiceProvider',
                 '--tag'      => ['db'],
             ]);
             Artisan::call('migrate');
@@ -124,9 +124,9 @@ class InstallController extends Controller
             $this->settingsSeeder($master);
 
             // if this is the first install of the html editor, seed old posts text to the new html column
-            if (in_array('2016_01_15_002617_add_htmlcontent_to_ticketit_and_comments', $inactive_migrations) &&
+            if (in_array('2016_01_15_002617_add_htmlcontent_to_brazidesk_and_comments', $inactive_migrations) &&
                 !(isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
-                Artisan::call('ticketit:htmlify');
+                Artisan::call('brazidesk:htmlify');
             }
         } elseif ($this->inactiveSettings()) { // new settings to be installed
 
@@ -142,8 +142,8 @@ class InstallController extends Controller
      */
     public function settingsSeeder($master = false)
     {
-        $cli_path = 'config/ticketit.php'; // if seeder run from cli, use the cli path
-        $provider_path = '../config/ticketit.php'; // if seeder run from provider, use the provider path
+        $cli_path = 'config/brazidesk.php'; // if seeder run from cli, use the cli path
+        $provider_path = '../config/brazidesk.php'; // if seeder run from provider, use the provider path
         $config_settings = [];
         $settings_file_path = false;
         if (File::isFile($cli_path)) {
@@ -202,7 +202,7 @@ class InstallController extends Controller
     }
 
     /**
-     * Get all Ticketit Package migrations that were not migrated.
+     * Get all Brazidesk Package migrations that were not migrated.
      *
      * @return array
      */
@@ -231,7 +231,7 @@ class InstallController extends Controller
     }
 
     /**
-     * Check if all Ticketit Package settings that were not installed to setting table.
+     * Check if all Brazidesk Package settings that were not installed to setting table.
      *
      * @return bool
      */
@@ -242,9 +242,9 @@ class InstallController extends Controller
         // Package Settings
         // if Laravel v5.2 or 5.3
         if (version_compare(app()->version(), '5.2.0', '>=')) {
-            $installed_settings = DB::table('ticketit_settings')->pluck('value', 'slug');
+            $installed_settings = DB::table('brazidesk_settings')->pluck('value', 'slug');
         } else { // if Laravel 5.1
-            $installed_settings = DB::table('ticketit_settings')->lists('value', 'slug');
+            $installed_settings = DB::table('brazidesk_settings')->lists('value', 'slug');
         }
 
         if (!is_array($installed_settings)) {
@@ -270,10 +270,10 @@ class InstallController extends Controller
      */
     public function demoDataSeeder()
     {
-        $seeder = new TicketitTableSeeder();
+        $seeder = new BrazideskTableSeeder();
         $seeder->run();
         session()->flash('status', 'Demo tickets, users, and agents are seeded!');
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\TicketsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\TicketsController@index');
     }
 }

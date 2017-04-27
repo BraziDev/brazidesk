@@ -7,7 +7,7 @@
                  'class' => 'form-horizontal'
              ]) !!}
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">{{ trans('ticketit::lang.flash-x') }}</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">{{ trans('brazidesk::lang.flash-x') }}</span></button>
                 <h4 class="modal-title" id="ticket-edit-modal-Label">{{ $ticket->subject }}</h4>
             </div>
             <div class="modal-body">
@@ -24,13 +24,13 @@
                     {{--@endif--}}
 
                     <div class="form-group col-lg-6">
-                        {!! CollectiveForm::label('priority_id', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => 'col-lg-4 control-label']) !!}
+                        {!! CollectiveForm::label('priority_id', trans('brazidesk::lang.priority') . trans('brazidesk::lang.colon'), ['class' => 'col-lg-4 control-label']) !!}
                         <div class="col-lg-8">
                             {!! CollectiveForm::select('priority_id', $priority_lists, $ticket->priority_id, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        {!! CollectiveForm::label('agent_id', trans('ticketit::lang.agent') . trans('ticketit::lang.colon'), [
+                        {!! CollectiveForm::label('agent_id', trans('brazidesk::lang.agent') . trans('brazidesk::lang.colon'), [
                             'class' => 'col-lg-4 control-label'
                         ]) !!}
                         <div class="col-lg-8">
@@ -46,7 +46,7 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-lg-12">
-                        {!! CollectiveForm::label('category_id',  trans('ticketit::lang.category') . trans('ticketit::lang.colon'), [
+                        {!! CollectiveForm::label('category_id',  trans('brazidesk::lang.category') . trans('brazidesk::lang.colon'), [
                             'class' => 'col-lg-6 control-label'
                         ]) !!}
                         <div class="col-lg-6">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-12">
-                        {!! CollectiveForm::label('status_id', trans('ticketit::lang.status') . trans('ticketit::lang.colon'), [
+                        {!! CollectiveForm::label('status_id', trans('brazidesk::lang.status') . trans('brazidesk::lang.colon'), [
                             'class' => 'col-lg-6 control-label'
                         ]) !!}
                         <div class="col-lg-6">
@@ -66,8 +66,8 @@
                     <div class="clearfix"></div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('ticketit::lang.btn-close') }}</button>
-                        {!! CollectiveForm::submit(trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('brazidesk::lang.btn-close') }}</button>
+                        {!! CollectiveForm::submit(trans('brazidesk::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
                     </div>
                     {!! CollectiveForm::close() !!}
                 </div>

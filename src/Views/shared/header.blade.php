@@ -1,3 +1,3 @@
-@include('ticketit::shared.assets')
-@include('ticketit::shared.nav')
-@include('ticketit::shared.errors')
+@include('brazidesk::shared.assets')
+@include('brazidesk::shared.nav')
+@include('brazidesk::shared.errors')

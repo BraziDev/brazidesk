@@ -1,11 +1,11 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Category;
-use Brazidev\Ticketit\Models\Ticket;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Category;
+use Brazidev\Brazidesk\Models\Ticket;
 
 class DashboardController extends Controller
 {
@@ -56,7 +56,7 @@ class DashboardController extends Controller
         }
 
         return view(
-            'ticketit::admin.index',
+            'brazidesk::admin.index',
             compact(
                 'open_tickets_count',
                 'closed_tickets_count',

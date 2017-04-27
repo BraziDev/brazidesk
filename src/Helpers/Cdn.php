@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit\Helpers;
+namespace Brazidev\Brazidesk\Helpers;
 
 /**
  * This file containes the version of different external JS and CSS libraries

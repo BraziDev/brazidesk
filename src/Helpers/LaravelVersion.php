@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit\Helpers;
+namespace Brazidev\Brazidesk\Helpers;
 
 use Illuminate\Routing\Router;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit\Traits;
+namespace Brazidev\Brazidesk\Traits;
 
 trait ContentEllipse
 {

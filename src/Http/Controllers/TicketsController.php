@@ -1,15 +1,15 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Brazidev\Ticketit\Models;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Category;
-use Brazidev\Ticketit\Models\Setting;
-use Brazidev\Ticketit\Models\Ticket;
+use Brazidev\Brazidesk\Models;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Category;
+use Brazidev\Brazidesk\Models\Setting;
+use Brazidev\Brazidesk\Models\Ticket;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -20,9 +20,9 @@ class TicketsController extends Controller
 
     public function __construct(Ticket $tickets, Agent $agent)
     {
-        $this->middleware('Brazidev\Ticketit\Middleware\ResAccessMiddleware', ['only' => ['show']]);
-        $this->middleware('Brazidev\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
-        $this->middleware('Brazidev\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
+        $this->middleware('Brazidev\Brazidesk\Middleware\ResAccessMiddleware', ['only' => ['show']]);
+        $this->middleware('Brazidev\Brazidesk\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
+        $this->middleware('Brazidev\Brazidesk\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
 
         $this->tickets = $tickets;
         $this->agent = $agent;
@@ -53,23 +53,23 @@ class TicketsController extends Controller
         }
 
         $collection
-            ->join('users', 'users.id', '=', 'ticketit.user_id')
-            ->join('ticketit_statuses', 'ticketit_statuses.id', '=', 'ticketit.status_id')
-            ->join('ticketit_priorities', 'ticketit_priorities.id', '=', 'ticketit.priority_id')
-            ->join('ticketit_categories', 'ticketit_categories.id', '=', 'ticketit.category_id')
+            ->join('users', 'users.id', '=', 'brazidesk.user_id')
+            ->join('brazidesk_statuses', 'brazidesk_statuses.id', '=', 'brazidesk.status_id')
+            ->join('brazidesk_priorities', 'brazidesk_priorities.id', '=', 'brazidesk.priority_id')
+            ->join('brazidesk_categories', 'brazidesk_categories.id', '=', 'brazidesk.category_id')
             ->select([
-                'ticketit.id',
-                'ticketit.subject AS subject',
-                'ticketit_statuses.name AS status',
-                'ticketit_statuses.color AS color_status',
-                'ticketit_priorities.color AS color_priority',
-                'ticketit_categories.color AS color_category',
-                'ticketit.id AS agent',
-                'ticketit.updated_at AS updated_at',
-                'ticketit_priorities.name AS priority',
+                'brazidesk.id',
+                'brazidesk.subject AS subject',
+                'brazidesk_statuses.name AS status',
+                'brazidesk_statuses.color AS color_status',
+                'brazidesk_priorities.color AS color_priority',
+                'brazidesk_categories.color AS color_category',
+                'brazidesk.id AS agent',
+                'brazidesk.updated_at AS updated_at',
+                'brazidesk_priorities.name AS priority',
                 'users.name AS owner',
-                'ticketit.agent_id',
-                'ticketit_categories.name AS category',
+                'brazidesk.agent_id',
+                'brazidesk_categories.name AS category',
             ]);
 
         $collection = $datatables->of($collection);
@@ -130,7 +130,7 @@ class TicketsController extends Controller
     {
         $complete = false;
 
-        return view('ticketit::index', compact('complete'));
+        return view('brazidesk::index', compact('complete'));
     }
 
     /**
@@ -142,7 +142,7 @@ class TicketsController extends Controller
     {
         $complete = true;
 
-        return view('ticketit::index', compact('complete'));
+        return view('brazidesk::index', compact('complete'));
     }
 
     /**
@@ -160,7 +160,7 @@ class TicketsController extends Controller
             $categories = Models\Category::lists('name', 'id');
         }
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return view('brazidesk::tickets.create', compact('priorities', 'categories'));
     }
 
     /**
@@ -175,8 +175,8 @@ class TicketsController extends Controller
         $this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
-            'priority_id' => 'required|exists:ticketit_priorities,id',
-            'category_id' => 'required|exists:ticketit_categories,id',
+            'priority_id' => 'required|exists:brazidesk_priorities,id',
+            'category_id' => 'required|exists:brazidesk_categories,id',
         ]);
 
         $ticket = new Ticket();
@@ -194,9 +194,9 @@ class TicketsController extends Controller
 
         $ticket->save();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
+        session()->flash('status', trans('brazidesk::lang.the-ticket-has-been-created'));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\TicketsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\TicketsController@index');
     }
 
     /**
@@ -232,7 +232,7 @@ class TicketsController extends Controller
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::tickets.show',
+        return view('brazidesk::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm'));
     }
@@ -250,9 +250,9 @@ class TicketsController extends Controller
         $this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
-            'priority_id' => 'required|exists:ticketit_priorities,id',
-            'category_id' => 'required|exists:ticketit_categories,id',
-            'status_id'   => 'required|exists:ticketit_statuses,id',
+            'priority_id' => 'required|exists:brazidesk_priorities,id',
+            'category_id' => 'required|exists:brazidesk_categories,id',
+            'status_id'   => 'required|exists:brazidesk_statuses,id',
             'agent_id'    => 'required',
         ]);
 
@@ -274,7 +274,7 @@ class TicketsController extends Controller
 
         $ticket->save();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
+        session()->flash('status', trans('brazidesk::lang.the-ticket-has-been-modified'));
 
         return redirect()->route(Setting::grab('main_route').'.show', $id);
     }
@@ -292,7 +292,7 @@ class TicketsController extends Controller
         $subject = $ticket->subject;
         $ticket->delete();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-deleted', ['name' => $subject]));
+        session()->flash('status', trans('brazidesk::lang.the-ticket-has-been-deleted', ['name' => $subject]));
 
         return redirect()->route(Setting::grab('main_route').'.index');
     }
@@ -317,13 +317,13 @@ class TicketsController extends Controller
             $subject = $ticket->subject;
             $ticket->save();
 
-            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-completed', ['name' => $subject]));
+            session()->flash('status', trans('brazidesk::lang.the-ticket-has-been-completed', ['name' => $subject]));
 
             return redirect()->route(Setting::grab('main_route').'.index');
         }
 
         return redirect()->route(Setting::grab('main_route').'.index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+            ->with('warning', trans('brazidesk::lang.you-are-not-permitted-to-do-this'));
     }
 
     /**
@@ -346,13 +346,13 @@ class TicketsController extends Controller
             $subject = $ticket->subject;
             $ticket->save();
 
-            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-reopened', ['name' => $subject]));
+            session()->flash('status', trans('brazidesk::lang.the-ticket-has-been-reopened', ['name' => $subject]));
 
             return redirect()->route(Setting::grab('main_route').'.index');
         }
 
         return redirect()->route(Setting::grab('main_route').'.index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+            ->with('warning', trans('brazidesk::lang.you-are-not-permitted-to-do-this'));
     }
 
     public function agentSelectList($category_id, $ticket_id)

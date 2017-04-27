@@ -6,8 +6,8 @@
  * See Seeds/SettingsTableSeeder.php
  */
 
-$codemirrorVersion = Brazidev\Ticketit\Helpers\Cdn::CodeMirror;
-$summernoteVersion = Brazidev\Ticketit\Helpers\Cdn::Summernote;
+$codemirrorVersion = Brazidev\Brazidesk\Helpers\Cdn::CodeMirror;
+$summernoteVersion = Brazidev\Brazidesk\Helpers\Cdn::Summernote;
 
 return [
 

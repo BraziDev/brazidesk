@@ -1,17 +1,17 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Brazidev\Ticketit\Models;
+use Brazidev\Brazidesk\Models;
 
 class CommentsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('Brazidev\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['edit', 'update', 'destroy']]);
-        $this->middleware('Brazidev\Ticketit\Middleware\ResAccessMiddleware', ['only' => 'store']);
+        $this->middleware('Brazidev\Brazidesk\Middleware\IsAdminMiddleware', ['only' => ['edit', 'update', 'destroy']]);
+        $this->middleware('Brazidev\Brazidesk\Middleware\ResAccessMiddleware', ['only' => 'store']);
     }
 
     /**
@@ -44,7 +44,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'ticket_id'   => 'required|exists:ticketit,id',
+            'ticket_id'   => 'required|exists:brazidesk,id',
             'content'     => 'required|min:6',
         ]);
 
@@ -60,7 +60,7 @@ class CommentsController extends Controller
         $ticket->updated_at = $comment->created_at;
         $ticket->save();
 
-        return back()->with('status', trans('ticketit::lang.comment-has-been-added-ok'));
+        return back()->with('status', trans('brazidesk::lang.comment-has-been-added-ok'));
     }
 
     /**

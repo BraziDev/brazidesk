@@ -1,12 +1,12 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Priority extends Model
 {
-    protected $table = 'ticketit_priorities';
+    protected $table = 'brazidesk_priorities';
 
     protected $fillable = ['name', 'color'];
 
@@ -24,6 +24,6 @@ class Priority extends Model
      */
     public function tickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'priority_id');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'priority_id');
     }
 }

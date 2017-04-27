@@ -1,10 +1,10 @@
 <?php
 
-namespace Brazidev\Ticketit\Middleware;
+namespace Brazidev\Brazidesk\Middleware;
 
 use Closure;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Setting;
 
 class ResAccessMiddleware
 {
@@ -55,7 +55,7 @@ class ResAccessMiddleware
             return $next($request);
         }
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\TicketsController@index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-access'));
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\TicketsController@index')
+            ->with('warning', trans('brazidesk::lang.you-are-not-permitted-to-access'));
     }
 }

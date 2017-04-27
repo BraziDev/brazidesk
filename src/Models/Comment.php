@@ -1,17 +1,17 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Brazidev\Ticketit\Traits\ContentEllipse;
-use Brazidev\Ticketit\Traits\Purifiable;
+use Brazidev\Brazidesk\Traits\ContentEllipse;
+use Brazidev\Brazidesk\Traits\Purifiable;
 
 class Comment extends Model
 {
     use ContentEllipse;
     use Purifiable;
 
-    protected $table = 'ticketit_comments';
+    protected $table = 'brazidesk_comments';
 
     /**
      * Get related ticket.
@@ -20,7 +20,7 @@ class Comment extends Model
      */
     public function ticket()
     {
-        return $this->belongsTo('Brazidev\Ticketit\Models\Ticket', 'ticket_id');
+        return $this->belongsTo('Brazidev\Brazidesk\Models\Ticket', 'ticket_id');
     }
 
     /**

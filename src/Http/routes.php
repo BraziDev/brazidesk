@@ -1,16 +1,16 @@
 <?php
 
-Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMiddleware()], function () use ($main_route, $main_route_path, $admin_route, $admin_route_path) {
+Route::group(['middleware' => \Brazidev\Brazidesk\Helpers\LaravelVersion::authMiddleware()], function () use ($main_route, $main_route_path, $admin_route, $admin_route_path) {
 
     //Route::group(['middleware' => '', function () use ($main_route) {
         //Ticket public route
-        Route::get("$main_route_path/complete", 'Brazidev\Ticketit\Controllers\TicketsController@indexComplete')
+        Route::get("$main_route_path/complete", 'Brazidev\Brazidesk\Controllers\TicketsController@indexComplete')
             ->name("$main_route-complete");
-    Route::get("$main_route_path/data/{id?}", 'Brazidev\Ticketit\Controllers\TicketsController@data')
+    Route::get("$main_route_path/data/{id?}", 'Brazidev\Brazidesk\Controllers\TicketsController@data')
             ->name("$main_route.data");
 
     $field_name = last(explode('/', $main_route_path));
-    Route::resource($main_route_path, 'Brazidev\Ticketit\Controllers\TicketsController', [
+    Route::resource($main_route_path, 'Brazidev\Brazidesk\Controllers\TicketsController', [
             'names' => [
                 'index'   => $main_route.'.index',
                 'store'   => $main_route.'.store',
@@ -27,7 +27,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
 
         //Ticket Comments public route
         $field_name = last(explode('/', "$main_route_path-comment"));
-    Route::resource("$main_route_path-comment", 'Brazidev\Ticketit\Controllers\CommentsController', [
+    Route::resource("$main_route_path-comment", 'Brazidev\Brazidesk\Controllers\CommentsController', [
             'names' => [
                 'index'   => "$main_route-comment.index",
                 'store'   => "$main_route-comment.store",
@@ -43,33 +43,33 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Ticket complete route for permitted user.
-        Route::get("$main_route_path/{id}/complete", 'Brazidev\Ticketit\Controllers\TicketsController@complete')
+        Route::get("$main_route_path/{id}/complete", 'Brazidev\Brazidesk\Controllers\TicketsController@complete')
             ->name("$main_route.complete");
 
         //Ticket reopen route for permitted user.
-        Route::get("$main_route_path/{id}/reopen", 'Brazidev\Ticketit\Controllers\TicketsController@reopen')
+        Route::get("$main_route_path/{id}/reopen", 'Brazidev\Brazidesk\Controllers\TicketsController@reopen')
             ->name("$main_route.reopen");
     //});
 
-    Route::group(['middleware' => 'Brazidev\Ticketit\Middleware\IsAgentMiddleware'], function () use ($main_route, $main_route_path) {
+    Route::group(['middleware' => 'Brazidev\Brazidesk\Middleware\IsAgentMiddleware'], function () use ($main_route, $main_route_path) {
 
         //API return list of agents in particular category
         Route::get("$main_route_path/agents/list/{category_id?}/{ticket_id?}", [
             'as'   => $main_route.'agentselectlist',
-            'uses' => 'Brazidev\Ticketit\Controllers\TicketsController@agentSelectList',
+            'uses' => 'Brazidev\Brazidesk\Controllers\TicketsController@agentSelectList',
         ]);
     });
 
-    Route::group(['middleware' => 'Brazidev\Ticketit\Middleware\IsAdminMiddleware'], function () use ($admin_route, $admin_route_path) {
+    Route::group(['middleware' => 'Brazidev\Brazidesk\Middleware\IsAdminMiddleware'], function () use ($admin_route, $admin_route_path) {
         //Ticket admin index route (ex. http://url/tickets-admin/)
         Route::get("$admin_route_path/indicator/{indicator_period?}", [
                 'as'   => $admin_route.'.dashboard.indicator',
-                'uses' => 'Brazidev\Ticketit\Controllers\DashboardController@index',
+                'uses' => 'Brazidev\Brazidesk\Controllers\DashboardController@index',
         ]);
-        Route::get($admin_route_path, 'Brazidev\Ticketit\Controllers\DashboardController@index');
+        Route::get($admin_route_path, 'Brazidev\Brazidesk\Controllers\DashboardController@index');
 
         //Ticket statuses admin routes (ex. http://url/tickets-admin/status)
-        Route::resource("$admin_route_path/status", 'Brazidev\Ticketit\Controllers\StatusesController', [
+        Route::resource("$admin_route_path/status", 'Brazidev\Brazidesk\Controllers\StatusesController', [
             'names' => [
                 'index'   => "$admin_route.status.index",
                 'store'   => "$admin_route.status.store",
@@ -82,7 +82,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Ticket priorities admin routes (ex. http://url/tickets-admin/priority)
-        Route::resource("$admin_route_path/priority", 'Brazidev\Ticketit\Controllers\PrioritiesController', [
+        Route::resource("$admin_route_path/priority", 'Brazidev\Brazidesk\Controllers\PrioritiesController', [
             'names' => [
                 'index'   => "$admin_route.priority.index",
                 'store'   => "$admin_route.priority.store",
@@ -95,7 +95,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Agents management routes (ex. http://url/tickets-admin/agent)
-        Route::resource("$admin_route_path/agent", 'Brazidev\Ticketit\Controllers\AgentsController', [
+        Route::resource("$admin_route_path/agent", 'Brazidev\Brazidesk\Controllers\AgentsController', [
             'names' => [
                 'index'   => "$admin_route.agent.index",
                 'store'   => "$admin_route.agent.store",
@@ -108,7 +108,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Agents management routes (ex. http://url/tickets-admin/agent)
-        Route::resource("$admin_route_path/category", 'Brazidev\Ticketit\Controllers\CategoriesController', [
+        Route::resource("$admin_route_path/category", 'Brazidev\Brazidesk\Controllers\CategoriesController', [
             'names' => [
                 'index'   => "$admin_route.category.index",
                 'store'   => "$admin_route.category.store",
@@ -121,7 +121,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Settings configuration routes (ex. http://url/tickets-admin/configuration)
-        Route::resource("$admin_route_path/configuration", 'Brazidev\Ticketit\Controllers\ConfigurationsController', [
+        Route::resource("$admin_route_path/configuration", 'Brazidev\Brazidesk\Controllers\ConfigurationsController', [
             'names' => [
                 'index'   => "$admin_route.configuration.index",
                 'store'   => "$admin_route.configuration.store",
@@ -134,7 +134,7 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Administrators configuration routes (ex. http://url/tickets-admin/administrators)
-        Route::resource("$admin_route_path/administrator", 'Brazidev\Ticketit\Controllers\AdministratorsController', [
+        Route::resource("$admin_route_path/administrator", 'Brazidev\Brazidesk\Controllers\AdministratorsController', [
             'names' => [
                 'index'   => "$admin_route.administrator.index",
                 'store'   => "$admin_route.administrator.store",
@@ -147,6 +147,6 @@ Route::group(['middleware' => \Brazidev\Ticketit\Helpers\LaravelVersion::authMid
         ]);
 
         //Tickets demo data route (ex. http://url/tickets-admin/demo-seeds/)
-        // Route::get("$admin_route/demo-seeds", 'Brazidev\Ticketit\Controllers\InstallController@demoDataSeeder');
+        // Route::get("$admin_route/demo-seeds", 'Brazidev\Brazidesk\Controllers\InstallController@demoDataSeeder');
     });
 });

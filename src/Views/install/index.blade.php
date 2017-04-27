@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Ticketit Installation</title>
+    <title>Brazidesk Installation</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -24,10 +24,10 @@
 <body>
 
 <div class="container">
-    <h1 style="text-align: center">{{ trans('ticketit::install.initial-setup') }}</h1>
+    <h1 style="text-align: center">{{ trans('brazidesk::install.initial-setup') }}</h1>
   <form class="form-signin" action="{{url('/tickets-install') }}" method="post" style="max-width: 500px">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <h3 class="form-signin-heading">{{ trans('ticketit::install.master-template-file') }}</h3>
+        <h3 class="form-signin-heading">{{ trans('brazidesk::install.master-template-file') }}</h3>
         <select id="master" name="master" class="form-control" required autofocus>
             @foreach($views_files_list as $name => $path)
                 <option value="{{ $name }}">{{ $path }}</option>
@@ -35,39 +35,39 @@
         </select>
         <br>
         <div class="form-group" id="other-path-group" style="display: none">
-            <label for="other_path">{{ trans('ticketit::install.master-template-other-path') }}</label>
+            <label for="other_path">{{ trans('brazidesk::install.master-template-other-path') }}</label>
             <input type="text" id="other_path" name="other_path" class="form-control" />
             <span id="helpBlock" class="help-block">
-                {{ trans('ticketit::install.master-template-other-path-ex') }}
+                {{ trans('brazidesk::install.master-template-other-path-ex') }}
             </span>
         </div>
 
-        <h3 class="form-signin-heading">{{ trans('ticketit::install.admin-select') }}</h3>
+        <h3 class="form-signin-heading">{{ trans('brazidesk::install.admin-select') }}</h3>
         <select id="admin_id" name="admin_id" class="form-control" required autofocus>
             @foreach($users_list as $id => $name)
                 <option value="{{ $id }}">{{ $name }}</option>
             @endforeach
         </select>
         <span id="helpBlock" class="help-block">
-            {{ trans('ticketit::install.admin-select-help-block') }}
+            {{ trans('brazidesk::install.admin-select-help-block') }}
         </span>
         <br>
 
         <div class="well small" style="border: 1px solid #ccc">
             @if(!empty($inactive_migrations))
-                <b>{{ trans('ticketit::install.migrations-to-be-installed') }}</b>
+                <b>{{ trans('brazidesk::install.migrations-to-be-installed') }}</b>
                 <ul>
                     @foreach($inactive_migrations as $mig)
                         <li>{{ $mig }}</li>
                     @endforeach
                 </ul>
             @else
-                <b>{{ trans('ticketit::install.all-tables-migrated') }}</b>
+                <b>{{ trans('brazidesk::install.all-tables-migrated') }}</b>
             @endif
         </div>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-            {{ trans('ticketit::install.proceed') }}
+            {{ trans('brazidesk::install.proceed') }}
         </button>
     </form>
 

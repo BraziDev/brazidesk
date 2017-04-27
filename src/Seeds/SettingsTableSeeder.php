@@ -1,9 +1,9 @@
 <?php
 
-namespace Brazidev\Ticketit\Seeds;
+namespace Brazidev\Brazidesk\Seeds;
 
 use Illuminate\Database\Seeder;
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
 {
@@ -37,7 +37,7 @@ class SettingsTableSeeder extends Seeder
     }
 
     /**
-     * Takes config/ticketit.php, merge with package defaults, and returns serialized array.
+     * Takes config/brazidesk.php, merge with package defaults, and returns serialized array.
      *
      * @param $defaults
      * @param $config
@@ -80,13 +80,13 @@ class SettingsTableSeeder extends Seeder
         return [
 
             /*
-             * Ticketit main route: Where to load the ticket system (ex. http://url/tickets)
+             * Brazidesk main route: Where to load the ticket system (ex. http://url/tickets)
              * Default: /ticket
              */
             'main_route'      => 'tickets',
             'main_route_path' => 'tickets',
             /*
-             * Ticketit admin route: Where to load the ticket administration dashboard (ex. http://url/tickets-admin)
+             * Brazidesk admin route: Where to load the ticket administration dashboard (ex. http://url/tickets-admin)
              * Default: /ticket
              */
             'admin_route'      => 'tickets-admin',
@@ -98,10 +98,10 @@ class SettingsTableSeeder extends Seeder
             'master_template' => 'master',
             /*
              * Template adherence: The email blade template to be extended
-             * Default: ticketit::emails.templates.ticketit
+             * Default: brazidesk::emails.templates.brazidesk
              */
-            'email.template' => 'ticketit::emails.templates.ticketit',
-            // resources/views/emails/templates/ticketit.blade.php
+            'email.template' => 'brazidesk::emails.templates.brazidesk',
+            // resources/views/emails/templates/brazidesk.blade.php
             'email.header'           => 'Ticket Update',
             'email.signoff'          => 'Thank you for your patience!',
             'email.signature'        => 'Your friends',
@@ -109,8 +109,8 @@ class SettingsTableSeeder extends Seeder
             'email.google_plus_link' => '#', // Toogle icon link: false or string
             'email.facebook_link'    => '#', // Toogle icon link: false or string
             'email.twitter_link'     => '#', // Toogle icon link: false or string
-            'email.footer'           => 'Powered by Ticketit',
-            'email.footer_link'      => 'https://github.com/brazidev/ticketit',
+            'email.footer'           => 'Powered by Brazidesk',
+            'email.footer_link'      => 'https://github.com/brazidev/brazidesk',
             'email.color_body_bg'    => '#FFFFFF',
             'email.color_header_bg'  => '#44B7B7',
             'email.color_content_bg' => '#F46B45',
@@ -203,7 +203,7 @@ class SettingsTableSeeder extends Seeder
             'editor_enabled' => 'yes',
 
             /*
-             * If Font-awesome css is included outside ticketit, this should be set to 'no'
+             * If Font-awesome css is included outside brazidesk, this should be set to 'no'
              * Default: 'yes'
              */
             'include_font_awesome' => 'yes',
@@ -244,7 +244,7 @@ class SettingsTableSeeder extends Seeder
              *
              * This setting stores the path to the json config file, relative to project route
              */
-            'summernote_options_json_file' => 'vendor/brazidev/ticketit/src/JSON/summernote_init.json',
+            'summernote_options_json_file' => 'vendor/brazidev/brazidesk/src/JSON/summernote_init.json',
 
             /*
              * Set which html tags are allowed
@@ -264,11 +264,11 @@ class SettingsTableSeeder extends Seeder
             /*
              * Set custom routes file
              *
-             * Useful if you want to replace any of the Ticketit components
+             * Useful if you want to replace any of the Brazidesk components
              *
              * Default: __DIR__.'/routes.php'
              */
-            'routes' => base_path('vendor/brazidev/ticketit/src').'/routes.php',
+            'routes' => base_path('vendor/brazidev/brazidesk/src').'/routes.php',
 
         ];
     }

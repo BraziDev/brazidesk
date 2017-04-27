@@ -1,13 +1,13 @@
 @if($editor_enabled)
 
 @if($codemirror_enabled)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Brazidev\Ticketit\Helpers\Cdn::CodeMirror}}/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Brazidev\Ticketit\Helpers\Cdn::CodeMirror}}/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Brazidev\Brazidesk\Helpers\Cdn::CodeMirror}}/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Brazidev\Brazidesk\Helpers\Cdn::CodeMirror}}/mode/xml/xml.min.js"></script>
 @endif
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Brazidev\Ticketit\Helpers\Cdn::Summernote}}/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Brazidev\Brazidesk\Helpers\Cdn::Summernote}}/summernote.min.js"></script>
 @if($editor_locale)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Brazidev\Ticketit\Helpers\Cdn::Summernote}}/lang/summernote-{{$editor_locale}}.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Brazidev\Brazidesk\Helpers\Cdn::Summernote}}/lang/summernote-{{$editor_locale}}.min.js"></script>
 @endif
 <script>
 

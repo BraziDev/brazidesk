@@ -1,11 +1,11 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Status;
+use Brazidev\Brazidesk\Models\Status;
 
 class StatusesController extends Controller
 {
@@ -18,7 +18,7 @@ class StatusesController extends Controller
     {
         $statuses = Status::all();
 
-        return view('ticketit::admin.status.index', compact('statuses'));
+        return view('brazidesk::admin.status.index', compact('statuses'));
     }
 
     /**
@@ -28,7 +28,7 @@ class StatusesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.status.create');
+        return view('brazidesk::admin.status.create');
     }
 
     /**
@@ -48,9 +48,9 @@ class StatusesController extends Controller
         $status = new Status();
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.status-name-has-been-created', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\StatusesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\StatusesController@index');
     }
 
     /**
@@ -62,7 +62,7 @@ class StatusesController extends Controller
      */
     public function show($id)
     {
-        return trans('ticketit::lang.status-all-tickets-here');
+        return trans('brazidesk::lang.status-all-tickets-here');
     }
 
     /**
@@ -76,7 +76,7 @@ class StatusesController extends Controller
     {
         $status = Status::findOrFail($id);
 
-        return view('ticketit::admin.status.edit', compact('status'));
+        return view('brazidesk::admin.status.edit', compact('status'));
     }
 
     /**
@@ -97,9 +97,9 @@ class StatusesController extends Controller
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.status-name-has-been-modified', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\StatusesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\StatusesController@index');
     }
 
     /**
@@ -115,8 +115,8 @@ class StatusesController extends Controller
         $name = $status->name;
         $status->delete();
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', trans('brazidesk::lang.status-name-has-been-deleted', ['name' => $name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\StatusesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\StatusesController@index');
     }
 }

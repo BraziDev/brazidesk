@@ -1,12 +1,12 @@
 <?php
 
-namespace Brazidev\Ticketit\Mail;
+namespace Brazidev\Brazidesk\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TicketitNotification extends Mailable
+class BrazideskNotification extends Mailable
 {
     use Queueable, SerializesModels;
 

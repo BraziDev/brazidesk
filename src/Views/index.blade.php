@@ -1,12 +1,12 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::lang.index-title') }}
+    {{ trans('brazidesk::lang.index-title') }}
 @stop
 
 @section('content')
-    @include('ticketit::shared.header')
-    @include('ticketit::tickets.index')
+    @include('brazidesk::shared.header')
+    @include('brazidesk::tickets.index')
 @stop
 
 @section('footer')
@@ -22,39 +22,39 @@
         	lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
 	        ajax: '{!! route($setting->grab('main_route').'.data', $complete) !!}',
 	        language: {
-				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
-				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
-				info:           "{{ trans('ticketit::lang.table-info') }}",
-				infoEmpty:      "{{ trans('ticketit::lang.table-info-empty') }}",
-				infoFiltered:   "{{ trans('ticketit::lang.table-info-filtered') }}",
-				infoPostFix:    "{{ trans('ticketit::lang.table-info-postfix') }}",
-				thousands:      "{{ trans('ticketit::lang.table-thousands') }}",
-				lengthMenu:     "{{ trans('ticketit::lang.table-length-menu') }}",
-				loadingRecords: "{{ trans('ticketit::lang.table-loading-results') }}",
-				processing:     "{{ trans('ticketit::lang.table-processing') }}",
-				search:         "{{ trans('ticketit::lang.table-search') }}",
-				zeroRecords:    "{{ trans('ticketit::lang.table-zero-records') }}",
+				decimal:        "{{ trans('brazidesk::lang.table-decimal') }}",
+				emptyTable:     "{{ trans('brazidesk::lang.table-empty') }}",
+				info:           "{{ trans('brazidesk::lang.table-info') }}",
+				infoEmpty:      "{{ trans('brazidesk::lang.table-info-empty') }}",
+				infoFiltered:   "{{ trans('brazidesk::lang.table-info-filtered') }}",
+				infoPostFix:    "{{ trans('brazidesk::lang.table-info-postfix') }}",
+				thousands:      "{{ trans('brazidesk::lang.table-thousands') }}",
+				lengthMenu:     "{{ trans('brazidesk::lang.table-length-menu') }}",
+				loadingRecords: "{{ trans('brazidesk::lang.table-loading-results') }}",
+				processing:     "{{ trans('brazidesk::lang.table-processing') }}",
+				search:         "{{ trans('brazidesk::lang.table-search') }}",
+				zeroRecords:    "{{ trans('brazidesk::lang.table-zero-records') }}",
 				paginate: {
-					first:      "{{ trans('ticketit::lang.table-paginate-first') }}",
-					last:       "{{ trans('ticketit::lang.table-paginate-last') }}",
-					next:       "{{ trans('ticketit::lang.table-paginate-next') }}",
-					previous:   "{{ trans('ticketit::lang.table-paginate-prev') }}"
+					first:      "{{ trans('brazidesk::lang.table-paginate-first') }}",
+					last:       "{{ trans('brazidesk::lang.table-paginate-last') }}",
+					next:       "{{ trans('brazidesk::lang.table-paginate-next') }}",
+					previous:   "{{ trans('brazidesk::lang.table-paginate-prev') }}"
 				},
 				aria: {
-					sortAscending:  "{{ trans('ticketit::lang.table-aria-sort-asc') }}",
-					sortDescending: "{{ trans('ticketit::lang.table-aria-sort-desc') }}"
+					sortAscending:  "{{ trans('brazidesk::lang.table-aria-sort-asc') }}",
+					sortDescending: "{{ trans('brazidesk::lang.table-aria-sort-desc') }}"
 				},
 			},
 	        columns: [
-	            { data: 'id', name: 'ticketit.id' },
+	            { data: 'id', name: 'brazidesk.id' },
 	            { data: 'subject', name: 'subject' },
-	            { data: 'status', name: 'ticketit_statuses.name' },
-	            { data: 'updated_at', name: 'ticketit.updated_at' },
+	            { data: 'status', name: 'brazidesk_statuses.name' },
+	            { data: 'updated_at', name: 'brazidesk.updated_at' },
             	{ data: 'agent', name: 'users.name' },
 	            @if( $u->isAgent() || $u->isAdmin() )
-		            { data: 'priority', name: 'ticketit_priorities.name' },
+		            { data: 'priority', name: 'brazidesk_priorities.name' },
 	            	{ data: 'owner', name: 'users.name' },
-		            { data: 'category', name: 'ticketit_categories.name' }
+		            { data: 'category', name: 'brazidesk_categories.name' }
 	            @endif
 	        ]
 	    });

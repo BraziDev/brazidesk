@@ -1,8 +1,8 @@
 <?php
 
-namespace Brazidev\Ticketit\Traits;
+namespace Brazidev\Brazidesk\Traits;
 
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Setting;
 use Mews\Purifier\Facades\Purifier;
 
 trait Purifiable

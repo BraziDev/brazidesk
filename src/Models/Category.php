@@ -1,12 +1,12 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = 'ticketit_categories';
+    protected $table = 'brazidesk_categories';
 
     protected $fillable = ['name', 'color'];
 
@@ -24,7 +24,7 @@ class Category extends Model
      */
     public function tickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'category_id');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'category_id');
     }
 
     /**
@@ -34,6 +34,6 @@ class Category extends Model
      */
     public function agents()
     {
-        return $this->belongsToMany('\Brazidev\Ticketit\Models\Agent', 'ticketit_categories_users', 'category_id', 'user_id');
+        return $this->belongsToMany('\Brazidev\Brazidesk\Models\Agent', 'brazidesk_categories_users', 'category_id', 'user_id');
     }
 }

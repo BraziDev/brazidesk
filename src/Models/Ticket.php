@@ -1,18 +1,18 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Date\Date;
-use Brazidev\Ticketit\Traits\ContentEllipse;
-use Brazidev\Ticketit\Traits\Purifiable;
+use Brazidev\Brazidesk\Traits\ContentEllipse;
+use Brazidev\Brazidesk\Traits\Purifiable;
 
 class Ticket extends Model
 {
     use ContentEllipse;
     use Purifiable;
 
-    protected $table = 'ticketit';
+    protected $table = 'brazidesk';
     protected $dates = ['completed_at'];
 
     /**
@@ -57,7 +57,7 @@ class Ticket extends Model
      */
     public function status()
     {
-        return $this->belongsTo('Brazidev\Ticketit\Models\Status', 'status_id');
+        return $this->belongsTo('Brazidev\Brazidesk\Models\Status', 'status_id');
     }
 
     /**
@@ -67,7 +67,7 @@ class Ticket extends Model
      */
     public function priority()
     {
-        return $this->belongsTo('Brazidev\Ticketit\Models\Priority', 'priority_id');
+        return $this->belongsTo('Brazidev\Brazidesk\Models\Priority', 'priority_id');
     }
 
     /**
@@ -77,7 +77,7 @@ class Ticket extends Model
      */
     public function category()
     {
-        return $this->belongsTo('Brazidev\Ticketit\Models\Category', 'category_id');
+        return $this->belongsTo('Brazidev\Brazidesk\Models\Category', 'category_id');
     }
 
     /**
@@ -97,7 +97,7 @@ class Ticket extends Model
      */
     public function agent()
     {
-        return $this->belongsTo('Brazidev\Ticketit\Models\Agent', 'agent_id');
+        return $this->belongsTo('Brazidev\Brazidesk\Models\Agent', 'agent_id');
     }
 
     /**
@@ -107,7 +107,7 @@ class Ticket extends Model
      */
     public function comments()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Comment', 'ticket_id');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Comment', 'ticket_id');
     }
 
 //    /**
@@ -117,7 +117,7 @@ class Ticket extends Model
     //     */
     //    public function audits()
     //    {
-    //        return $this->hasMany('Brazidev\Ticketit\Models\Audit', 'ticket_id');
+    //        return $this->hasMany('Brazidev\Brazidesk\Models\Audit', 'ticket_id');
     //    }
     //
 

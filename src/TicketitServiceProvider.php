@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit;
+namespace Brazidev\Brazidesk;
 
 use Collective\Html\FormFacade as CollectiveForm;
 use Illuminate\Support\Facades\DB;
@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Brazidev\Ticketit\Console\Htmlify;
-use Brazidev\Ticketit\Controllers\InstallController;
-use Brazidev\Ticketit\Controllers\NotificationsController;
-use Brazidev\Ticketit\Controllers\ToolsController;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Comment;
-use Brazidev\Ticketit\Models\Setting;
-use Brazidev\Ticketit\Models\Ticket;
+use Brazidev\Brazidesk\Console\Htmlify;
+use Brazidev\Brazidesk\Controllers\InstallController;
+use Brazidev\Brazidesk\Controllers\NotificationsController;
+use Brazidev\Brazidesk\Controllers\ToolsController;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Comment;
+use Brazidev\Brazidesk\Models\Setting;
+use Brazidev\Brazidesk\Models\Ticket;
 
-class TicketitServiceProvider extends ServiceProvider
+class BrazideskServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -52,7 +52,7 @@ class TicketitServiceProvider extends ServiceProvider
             });
 
             // Passing to views the master view value from the setting file
-            view()->composer('ticketit::*', function ($view) {
+            view()->composer('brazidesk::*', function ($view) {
                 $tools = new ToolsController();
                 $master = Setting::grab('master_template');
                 $email = Setting::grab('email.template');
@@ -63,12 +63,12 @@ class TicketitServiceProvider extends ServiceProvider
             });
 
             //inlude font awesome css or not
-            view()->composer('ticketit::shared.assets', function ($view) {
+            view()->composer('brazidesk::shared.assets', function ($view) {
                 $include_font_awesome = Setting::grab('include_font_awesome');
                 $view->with(compact('include_font_awesome'));
             });
 
-            view()->composer('ticketit::tickets.partials.summernote', function ($view) {
+            view()->composer('brazidesk::tickets.partials.summernote', function ($view) {
                 $editor_locale = Setting::grab('summernote_locale');
 
                 if ($editor_locale == 'laravel') {
@@ -172,13 +172,13 @@ class TicketitServiceProvider extends ServiceProvider
                 return true;
             });
 
-            $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
+            $this->loadTranslationsFrom(__DIR__.'/Translations', 'brazidesk');
 
-            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+            $this->loadViewsFrom(__DIR__.'/Views', 'brazidesk');
 
-            $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
-            $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
-            $this->publishes([__DIR__.'/Public' => public_path('vendor/ticketit')], 'public');
+            $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/brazidesk')], 'views');
+            $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/brazidesk')], 'lang');
+            $this->publishes([__DIR__.'/Public' => public_path('vendor/brazidesk')], 'public');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             // Check public assets are present, publish them if not
@@ -194,8 +194,8 @@ class TicketitServiceProvider extends ServiceProvider
                 || Request::path() == 'tickets'
                 || Request::path() == 'tickets-admin'
                 || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
-            $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
-            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+            $this->loadTranslationsFrom(__DIR__.'/Translations', 'brazidesk');
+            $this->loadViewsFrom(__DIR__.'/Views', 'brazidesk');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             $authMiddleware = Helpers\LaravelVersion::authMiddleware();
@@ -203,17 +203,17 @@ class TicketitServiceProvider extends ServiceProvider
             Route::get('/tickets-install', [
                 'middleware' => $authMiddleware,
                 'as'         => 'tickets.install.index',
-                'uses'       => 'Brazidev\Ticketit\Controllers\InstallController@index',
+                'uses'       => 'Brazidev\Brazidesk\Controllers\InstallController@index',
             ]);
             Route::post('/tickets-install', [
                 'middleware' => $authMiddleware,
                 'as'         => 'tickets.install.setup',
-                'uses'       => 'Brazidev\Ticketit\Controllers\InstallController@setup',
+                'uses'       => 'Brazidev\Brazidesk\Controllers\InstallController@setup',
             ]);
             Route::get('/tickets-upgrade', [
                 'middleware' => $authMiddleware,
                 'as'         => 'tickets.install.upgrade',
-                'uses'       => 'Brazidev\Ticketit\Controllers\InstallController@upgrade',
+                'uses'       => 'Brazidev\Brazidesk\Controllers\InstallController@upgrade',
             ]);
             Route::get('/tickets', function () {
                 return redirect()->route('tickets.install.index');
@@ -248,9 +248,9 @@ class TicketitServiceProvider extends ServiceProvider
          * Register htmlify command. Need to run this when upgrading from <=0.2.2
          */
 
-        $this->app->singleton('command.brazidev.ticketit.htmlify', function ($app) {
+        $this->app->singleton('command.brazidev.brazidesk.htmlify', function ($app) {
             return new Htmlify();
         });
-        $this->commands('command.brazidev.ticketit.htmlify');
+        $this->commands('command.brazidev.brazidesk.htmlify');
     }
 }

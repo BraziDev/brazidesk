@@ -1,11 +1,11 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Priority;
+use Brazidev\Brazidesk\Models\Priority;
 
 class PrioritiesController extends Controller
 {
@@ -18,7 +18,7 @@ class PrioritiesController extends Controller
     {
         $priorities = Priority::all();
 
-        return view('ticketit::admin.priority.index', compact('priorities'));
+        return view('brazidesk::admin.priority.index', compact('priorities'));
     }
 
     /**
@@ -28,7 +28,7 @@ class PrioritiesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.priority.create');
+        return view('brazidesk::admin.priority.create');
     }
 
     /**
@@ -48,9 +48,9 @@ class PrioritiesController extends Controller
         $priority = new Priority();
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.priority-name-has-been-created', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\PrioritiesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\PrioritiesController@index');
     }
 
     /**
@@ -62,7 +62,7 @@ class PrioritiesController extends Controller
      */
     public function show($id)
     {
-        return trans('ticketit::lang.priority-all-tickets-here');
+        return trans('brazidesk::lang.priority-all-tickets-here');
     }
 
     /**
@@ -76,7 +76,7 @@ class PrioritiesController extends Controller
     {
         $priority = Priority::findOrFail($id);
 
-        return view('ticketit::admin.priority.edit', compact('priority'));
+        return view('brazidesk::admin.priority.edit', compact('priority'));
     }
 
     /**
@@ -97,9 +97,9 @@ class PrioritiesController extends Controller
         $priority = Priority::findOrFail($id);
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.priority-name-has-been-modified', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\PrioritiesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\PrioritiesController@index');
     }
 
     /**
@@ -115,8 +115,8 @@ class PrioritiesController extends Controller
         $name = $priority->name;
         $priority->delete();
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', trans('brazidesk::lang.priority-name-has-been-deleted', ['name' => $name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\PrioritiesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\PrioritiesController@index');
     }
 }

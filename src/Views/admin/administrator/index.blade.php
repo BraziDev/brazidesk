@@ -1,34 +1,34 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::admin.administrator-index-title') }}
+    {{ trans('brazidesk::admin.administrator-index-title') }}
 @stop
 
 @section('content')
-    @include('ticketit::shared.header')
+    @include('brazidesk::shared.header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>{{ trans('ticketit::admin.administrator-index-title') }}
+            <h2>{{ trans('brazidesk::admin.administrator-index-title') }}
                 {!! link_to_route(
                                     $setting->grab('admin_route').'.administrator.create',
-                                    trans('ticketit::admin.btn-create-new-administrator'), null,
+                                    trans('brazidesk::admin.btn-create-new-administrator'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($administrators->isEmpty())
-            <h3 class="text-center">{{ trans('ticketit::admin.administrator-index-no-administrators') }}
-                {!! link_to_route($setting->grab('admin_route').'.administrator.create', trans('ticketit::admin.administrator-index-create-new')) !!}
+            <h3 class="text-center">{{ trans('brazidesk::admin.administrator-index-no-administrators') }}
+                {!! link_to_route($setting->grab('admin_route').'.administrator.create', trans('brazidesk::admin.administrator-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <td>{{ trans('ticketit::admin.table-id') }}</td>
-                    <td>{{ trans('ticketit::admin.table-name') }}</td>
-                    <td>{{ trans('ticketit::admin.table-remove-administrator') }}</td>
+                    <td>{{ trans('brazidesk::admin.table-id') }}</td>
+                    <td>{{ trans('brazidesk::admin.table-name') }}</td>
+                    <td>{{ trans('brazidesk::admin.table-remove-administrator') }}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
                                         ],
                             'id' => "delete-$administrator->id"
                             ]) !!}
-                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
+                            {!! CollectiveForm::submit(trans('brazidesk::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
                             {!! CollectiveForm::close() !!}
                         </td>
                     </tr>

@@ -1,10 +1,10 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use Cache;
 use Illuminate\Database\Eloquent\Model;
-use Brazidev\Ticketit\Models\Setting as Table;
+use Brazidev\Brazidesk\Models\Setting as Table;
 
 class Setting extends Model
 {
@@ -15,7 +15,7 @@ class Setting extends Model
     /**
      * @var string
      */
-    protected $table = 'ticketit_settings';
+    protected $table = 'brazidesk_settings';
 
     /**
      * Returns one of three columns by slug.

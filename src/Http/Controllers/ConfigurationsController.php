@@ -1,14 +1,14 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Configuration;
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Configuration;
+use Brazidev\Brazidesk\Models\Setting;
 
 class ConfigurationsController extends Controller
 {
@@ -53,7 +53,7 @@ class ConfigurationsController extends Controller
         }
     }
 
-      return view('ticketit::admin.configuration.index', compact('configurations', 'configurations_by_sections'));
+      return view('brazidesk::admin.configuration.index', compact('configurations', 'configurations_by_sections'));
   }
 
   /**
@@ -63,7 +63,7 @@ class ConfigurationsController extends Controller
    */
   public function create()
   {
-      return view('ticketit::admin.configuration.create');
+      return view('brazidesk::admin.configuration.create');
   }
 
   /**
@@ -82,7 +82,7 @@ class ConfigurationsController extends Controller
 
       Session::flash('configuration', 'Setting saved successfully.');
       \Cache::forget('settings'); // refresh cached settings
-    return redirect()->action('\Brazidev\Ticketit\Controllers\ConfigurationsController@index');
+    return redirect()->action('\Brazidev\Brazidesk\Controllers\ConfigurationsController@index');
   }
 
   /**
@@ -98,7 +98,7 @@ class ConfigurationsController extends Controller
       $should_serialize = Setting::is_serialized($configuration->value);
       $default_serialized = Setting::is_serialized($configuration->default);
 
-      return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
+      return view('brazidesk::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
   }
 
   /**
@@ -118,18 +118,18 @@ class ConfigurationsController extends Controller
       if ($request->serialize) {
           //if(!Hash::check($request->password, Auth::user()->password)){
           if (!Auth::attempt($request->only('password'), false, false)) {
-              return back()->withErrors([trans('ticketit::admin.config-edit-auth-failed')]);
+              return back()->withErrors([trans('brazidesk::admin.config-edit-auth-failed')]);
           }
           if (false === eval('$value = serialize('.$value.');')) {
-              return back()->withErrors([trans('ticketit::admin.config-edit-eval-error')]);
+              return back()->withErrors([trans('brazidesk::admin.config-edit-eval-error')]);
           }
       }
 
       $configuration->update(['value' => $value, 'lang' => $request->lang]);
 
-      Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
+      Session::flash('configuration', trans('brazidesk::lang.configuration-name-has-been-modified', ['name' => $request->name]));
       \Cache::forget('settings'); // refresh cached settings
-    //return redirect(route('ticketit::admin.configuration.index'));
-    return redirect()->action('\Brazidev\Ticketit\Controllers\ConfigurationsController@index');
+    //return redirect(route('brazidesk::admin.configuration.index'));
+    return redirect()->action('\Brazidev\Brazidesk\Controllers\ConfigurationsController@index');
   }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Category;
+use Brazidev\Brazidesk\Models\Category;
 
 class CategoriesController extends Controller
 {
@@ -18,7 +18,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
 
-        return view('ticketit::admin.category.index', compact('categories'));
+        return view('brazidesk::admin.category.index', compact('categories'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.category.create');
+        return view('brazidesk::admin.category.create');
     }
 
     /**
@@ -48,9 +48,9 @@ class CategoriesController extends Controller
         $category = new Category();
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.category-name-has-been-created', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\CategoriesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\CategoriesController@index');
     }
 
     /**
@@ -76,7 +76,7 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('ticketit::admin.category.edit', compact('category'));
+        return view('brazidesk::admin.category.edit', compact('category'));
     }
 
     /**
@@ -97,9 +97,9 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', trans('brazidesk::lang.category-name-has-been-modified', ['name' => $request->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\CategoriesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\CategoriesController@index');
     }
 
     /**
@@ -115,8 +115,8 @@ class CategoriesController extends Controller
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', trans('brazidesk::lang.category-name-has-been-deleted', ['name' => $name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\CategoriesController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\CategoriesController@index');
     }
 }

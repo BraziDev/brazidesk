@@ -1,12 +1,12 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Setting;
 
 class AgentsController extends Controller
 {
@@ -14,14 +14,14 @@ class AgentsController extends Controller
     {
         $agents = Agent::agents()->get();
 
-        return view('ticketit::admin.agent.index', compact('agents'));
+        return view('brazidesk::admin.agent.index', compact('agents'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::admin.agent.create', compact('users'));
+        return view('brazidesk::admin.agent.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -29,27 +29,27 @@ class AgentsController extends Controller
         $agents_list = $this->addAgents($request->input('agents'));
         $agents_names = implode(',', $agents_list);
 
-        Session::flash('status', trans('ticketit::lang.agents-are-added-to-agents', ['names' => $agents_names]));
+        Session::flash('status', trans('brazidesk::lang.agents-are-added-to-agents', ['names' => $agents_names]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AgentsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AgentsController@index');
     }
 
     public function update($id, Request $request)
     {
         $this->syncAgentCategories($id, $request);
 
-        Session::flash('status', trans('ticketit::lang.agents-joined-categories-ok'));
+        Session::flash('status', trans('brazidesk::lang.agents-joined-categories-ok'));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AgentsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AgentsController@index');
     }
 
     public function destroy($id)
     {
         $agent = $this->removeAgent($id);
 
-        Session::flash('status', trans('ticketit::lang.agents-is-removed-from-team', ['name' => $agent->name]));
+        Session::flash('status', trans('brazidesk::lang.agents-is-removed-from-team', ['name' => $agent->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AgentsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AgentsController@index');
     }
 
     /**
@@ -63,7 +63,7 @@ class AgentsController extends Controller
     {
         $users = Agent::find($user_ids);
         foreach ($users as $user) {
-            $user->ticketit_agent = true;
+            $user->brazidesk_agent = true;
             $user->save();
             $users_list[] = $user->name;
         }
@@ -81,7 +81,7 @@ class AgentsController extends Controller
     public function removeAgent($id)
     {
         $agent = Agent::find($id);
-        $agent->ticketit_agent = false;
+        $agent->brazidesk_agent = false;
         $agent->save();
 
         // Remove him from tickets categories as well

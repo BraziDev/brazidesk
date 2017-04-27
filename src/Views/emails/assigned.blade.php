@@ -4,17 +4,17 @@
 @extends($email)
 
 @section('subject')
-	{{ trans('ticketit::email/globals.assigned') }}
+	{{ trans('brazidesk::email/globals.assigned') }}
 @stop
 
 @section('link')
 	<a style="color:#ffffff" href="{{ route($setting->grab('main_route').'.show', $ticket->id) }}">
-		{{ trans('ticketit::email/globals.view-ticket') }}
+		{{ trans('brazidesk::email/globals.view-ticket') }}
 	</a>
 @stop
 
 @section('content')
-	{!! trans('ticketit::email/assigned.data', [
+	{!! trans('brazidesk::email/assigned.data', [
 		'name'      =>  $notification_owner->name,
 		'subject'   =>  $ticket->subject,
 		'status'    =>  $ticket->status->name,

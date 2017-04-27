@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddCompletedAtColumnToTicketitTable extends Migration
+class AddCompletedAtColumnToBrazideskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddCompletedAtColumnToTicketitTable extends Migration
      */
     public function up()
     {
-        Schema::table('ticketit', function (Blueprint $table) {
+        Schema::table('brazidesk', function (Blueprint $table) {
             $table->timestamp('completed_at')->nullable();
         });
     }
@@ -24,7 +24,7 @@ class AddCompletedAtColumnToTicketitTable extends Migration
      */
     public function down()
     {
-        Schema::table('ticketit', function (Blueprint $table) {
+        Schema::table('brazidesk', function (Blueprint $table) {
             $table->dropColumn('completed_at');
         });
     }

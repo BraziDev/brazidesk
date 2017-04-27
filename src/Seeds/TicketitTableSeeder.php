@@ -1,13 +1,13 @@
 <?php
 
-namespace Brazidev\Ticketit\Seeds;
+namespace Brazidev\Brazidesk\Seeds;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class TicketitTableSeeder extends Seeder
+class BrazideskTableSeeder extends Seeder
 {
     public $email_domain = '@example.com'; // the email domain name for demo accounts. Ex. user1@example.com
     public $agents_qty = 5; // number of demo agents accounts
@@ -58,7 +58,7 @@ class TicketitTableSeeder extends Seeder
             $agent_info = new \App\User();
             $agent_info->name = $faker->name;
             $agent_info->email = 'agent'.$agents_counter.$this->email_domain;
-            $agent_info->ticketit_agent = 1;
+            $agent_info->brazidesk_agent = 1;
             $agent_info->password = Hash::make($this->default_agent_password);
             $agent_info->save();
             $agents[$agent_info->id] = $agent_info;
@@ -67,7 +67,7 @@ class TicketitTableSeeder extends Seeder
 
         // create tickets statuses
         foreach ($this->statuses as $name => $color) {
-            $status = \Brazidev\Ticketit\Models\Status::create([
+            $status = \Brazidev\Brazidesk\Models\Status::create([
                 'name'  => $name,
                 'color' => $color,
             ]);
@@ -76,7 +76,7 @@ class TicketitTableSeeder extends Seeder
         $counter = 0;
         // create tickets statuses
         foreach ($this->categories as $name => $color) {
-            $category = \Brazidev\Ticketit\Models\Category::create([
+            $category = \Brazidev\Brazidesk\Models\Category::create([
                 'name'  => $name,
                 'color' => $color,
             ]);
@@ -87,14 +87,14 @@ class TicketitTableSeeder extends Seeder
 
         // create tickets statuses
         foreach ($this->priorities as $name => $color) {
-            $priority = \Brazidev\Ticketit\Models\Priority::create([
+            $priority = \Brazidev\Brazidesk\Models\Priority::create([
                 'name'  => $name,
                 'color' => $color,
             ]);
         }
-        $categories_qty = \Brazidev\Ticketit\Models\Category::count();
-        $priorities_qty = \Brazidev\Ticketit\Models\Priority::count();
-        $statuses_qty = \Brazidev\Ticketit\Models\Status::count();
+        $categories_qty = \Brazidev\Brazidesk\Models\Category::count();
+        $priorities_qty = \Brazidev\Brazidesk\Models\Priority::count();
+        $statuses_qty = \Brazidev\Brazidesk\Models\Status::count();
 
         // create users
         $users_counter = 1;
@@ -103,7 +103,7 @@ class TicketitTableSeeder extends Seeder
             $user_info = new \App\User();
             $user_info->name = $faker->name;
             $user_info->email = 'user'.$users_counter.$this->email_domain;
-            $user_info->ticketit_agent = 0;
+            $user_info->brazidesk_agent = 0;
             $user_info->password = Hash::make($this->default_user_password);
             $user_info->save();
             $users_counter++;
@@ -117,7 +117,7 @@ class TicketitTableSeeder extends Seeder
                     $rand_status = rand(1, $statuses_qty);
                 } while ($rand_status == $this->default_closed_status_id);
 
-                $category = \Brazidev\Ticketit\Models\Category::find($rand_category);
+                $category = \Brazidev\Brazidesk\Models\Category::find($rand_category);
 
                 if (version_compare(app()->version(), '5.2.0', '>=')) {
                     $agents = $category->agents()->pluck('name', 'id')->toArray();
@@ -131,7 +131,7 @@ class TicketitTableSeeder extends Seeder
                 $random_complete = rand($this->tickets_min_close_period,
                                         $this->tickets_max_close_period);
 
-                $ticket = new \Brazidev\Ticketit\Models\Ticket();
+                $ticket = new \Brazidev\Brazidesk\Models\Ticket();
                 $ticket->subject = $faker->text(50);
                 $ticket->content = $faker->paragraphs(3, true);
                 $ticket->html = nl2br($ticket->content);
@@ -164,7 +164,7 @@ class TicketitTableSeeder extends Seeder
                         '-'.$random_create.' days', '-'.($random_create - $random_complete).' days');
                     }
 
-                    $comment = new \Brazidev\Ticketit\Models\Comment();
+                    $comment = new \Brazidev\Brazidesk\Models\Comment();
                     $comment->ticket_id = $ticket->id;
                     $comment->content = $faker->paragraphs(3, true);
                     $comment->html = nl2br($comment->content);

@@ -1,4 +1,4 @@
-# Ticketit
+# Brazidesk
 
 A simple helpdesk tickets system for Laravel 5.1+ (5.1, 5.2, 5.3 and 5.4) which integrates smoothly with Laravel default users and auth system. 
 It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 
@@ -13,13 +13,13 @@ It will integrate into your current Laravel project within minutes, and you can 
 7. Admin dashboard with statistics and performance tracking graphs
 8. Simple text editor for tickets descriptions and comments allows images upload
 
-[Full features list (12+) and screen shots](https://github.com/brazidev/ticketit/wiki/v0.2.3-Features)
+[Full features list (12+) and screen shots](https://github.com/brazidev/brazidesk/wiki/)
 
 ## Quick installation
 
-If you'd like to install Ticketit as a standalone app, use our [quick installer](https://github.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
+If you'd like to install Brazidesk as a standalone app, use our [quick installer](https://github.com/brazidev/brazidesk-app). This is a Laravel application pre-configured to work with Brazidesk. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Brazidesk.
 
-However if you'd like to include Ticketit in your existing project, skip to the [next section](#installation-manual).
+However if you'd like to include Brazidesk in your existing project, skip to the [next section](#installation-manual).
 
 ## Installation (manual):
 
@@ -32,7 +32,7 @@ However if you'd like to include Ticketit in your existing project, skip to the 
 4. Bootstrap 3+
 5. Jquery
 
-**Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
+**Dependents that are getting installed and configured automatically by Brazidesk (no action required from you)**
 
 1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
 2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
@@ -44,41 +44,41 @@ However if you'd like to include Ticketit in your existing project, skip to the 
 
 Step 1. Run this code via your terminal (1-2 minutes)
 ```shell
-	composer require brazidev/ticketit:0.*
+	composer require brazidev/brazidesk:0.*
 ```
 
 Step 2. After install, you have to add this line on your `config/app.php` in Service Providers section (1-2 minutes).
 ```php
-	Brazidev\Ticketit\TicketitServiceProvider::class,
+	Brazidev\Brazidesk\BrazideskServiceProvider::class,
 ```
 
-Step 3. [Check if App\User exists](https://github.com/brazidev/ticketit/wiki/Make-sure-that-App%5CUser-exists)
+Step 3. [Check if App\User exists](https://github.com/brazidev/brazidesk/wiki/Make-sure-that-App%5CUser-exists)
 
-Step 4. Make sure you have [authentication](https://laravel.com/docs/5.4/authentication#introduction) set up. In 5.2+, you can use `php artisan make:auth`
+Step 4. Make sure you have [authentication](https://laravel.com/docs/5.4/authentication#introduction) set up. In 5.4+, you can use `php artisan make:auth`
 
-Step 5. [Setting up your master view for Ticketit integration (1-2 minutes)](https://github.com/brazidev/ticketit/wiki/Integrating-Ticketit-views-with-your-project-template)
+Step 5. [Setting up your master view for Brazidesk integration (1-2 minutes)](https://github.com/brazidev/brazidesk/wiki/Integrating-Brazidesk-views-with-your-project-template)
 
 Step 6. Register at least one user into the system and log it in.
 
 Step 7. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
 
-Default ticketit front route: http://your-project-url/tickets
+Default brazidesk front route: http://your-project-url/tickets
 
-Default ticketit admin route: http://your-project-url/tickets-admin
+Default brazidesk admin route: http://your-project-url/tickets-admin
 
 **Note:** Make sure you have created at least one status, one prority, and one category before you start creating tickets.
 
 ## Documentation
-[Ticketit Wiki](https://github.com/brazidev/ticketit/wiki)
+[Brazidesk Wiki](https://github.com/brazidev/brazidesk/wiki)
 
 ## Support:
-[Review features requests, give your feedback, suggest features, report issues](https://github.com/brazidev/ticketit/issues)
+[Review features requests, give your feedback, suggest features, report issues](https://github.com/brazidev/brazidesk/issues)
 
 ## Live Demo
-http://ticketit.brazidev.info/tickets
+http://brazidesk.brazidev.info/tickets
 
 ## Project contributors (the project heros):
 
-Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.
+Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Brazidesk for all of us.
 
-https://github.com/brazidev/ticketit/graphs/contributors
+https://github.com/brazidev/brazidesk/graphs/contributors

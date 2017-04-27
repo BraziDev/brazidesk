@@ -1,36 +1,36 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::admin.agent-index-title') }}
+    {{ trans('brazidesk::admin.agent-index-title') }}
 @stop
 
 @section('content')
-    @include('ticketit::shared.header')
+    @include('brazidesk::shared.header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>{{ trans('ticketit::admin.agent-index-title') }}
+            <h2>{{ trans('brazidesk::admin.agent-index-title') }}
                 {!! link_to_route(
                                     $setting->grab('admin_route').'.agent.create',
-                                    trans('ticketit::admin.btn-create-new-agent'), null,
+                                    trans('brazidesk::admin.btn-create-new-agent'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($agents->isEmpty())
-            <h3 class="text-center">{{ trans('ticketit::admin.agent-index-no-agents') }}
-                {!! link_to_route($setting->grab('admin_route').'.agent.create', trans('ticketit::admin.agent-index-create-new')) !!}
+            <h3 class="text-center">{{ trans('brazidesk::admin.agent-index-no-agents') }}
+                {!! link_to_route($setting->grab('admin_route').'.agent.create', trans('brazidesk::admin.agent-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>{{ trans('ticketit::admin.table-id') }}</td>
-                        <td>{{ trans('ticketit::admin.table-name') }}</td>
-                        <td>{{ trans('ticketit::admin.table-categories') }}</td>
-                        <td>{{ trans('ticketit::admin.table-join-category') }}</td>
-                        <td>{{ trans('ticketit::admin.table-remove-agent') }}</td>
+                        <td>{{ trans('brazidesk::admin.table-id') }}</td>
+                        <td>{{ trans('brazidesk::admin.table-name') }}</td>
+                        <td>{{ trans('brazidesk::admin.table-categories') }}</td>
+                        <td>{{ trans('brazidesk::admin.table-join-category') }}</td>
+                        <td>{{ trans('brazidesk::admin.table-remove-agent') }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,14 +57,14 @@
                                                         $agent->id
                                                         ],
                                             ]) !!}
-                            @foreach(\Brazidev\Ticketit\Models\Category::all() as $agent_cat)
+                            @foreach(\Brazidev\Brazidesk\Models\Category::all() as $agent_cat)
                                 <input name="agent_cats[]"
                                        type="checkbox"
                                        value="{{ $agent_cat->id }}"
                                        {!! ($agent_cat->agents()->where("id", $agent->id)->count() > 0) ? "checked" : ""  !!}
                                        > {{ $agent_cat->name }}
                             @endforeach
-                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-join'), ['class' => 'btn btn-info btn-sm']) !!}
+                            {!! CollectiveForm::submit(trans('brazidesk::admin.btn-join'), ['class' => 'btn btn-info btn-sm']) !!}
                             {!! CollectiveForm::close() !!}
                         </td>
                         <td>
@@ -76,7 +76,7 @@
                                         ],
                             'id' => "delete-$agent->id"
                             ]) !!}
-                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
+                            {!! CollectiveForm::submit(trans('brazidesk::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
                             {!! CollectiveForm::close() !!}
                         </td>
                     </tr>

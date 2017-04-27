@@ -13,7 +13,7 @@ class EnlargeSettingsColumns extends Migration
     public function up()
     {
         //make value, default columns bigger
-        Schema::table('ticketit_settings', function (Blueprint $table) {
+        Schema::table('brazidesk_settings', function (Blueprint $table) {
             $table->mediumText('value')->change();
             $table->mediumText('default')->change();
         });
@@ -26,7 +26,7 @@ class EnlargeSettingsColumns extends Migration
      */
     public function down()
     {
-        Schema::table('ticketit_settings', function (Blueprint $table) {
+        Schema::table('brazidesk_settings', function (Blueprint $table) {
             $table->string('value')->change();
             $table->string('default')->change();
         });

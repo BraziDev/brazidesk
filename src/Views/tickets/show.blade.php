@@ -1,13 +1,13 @@
 @extends($master)
-@section('page', trans('ticketit::lang.show-ticket-title') . trans('ticketit::lang.colon') . $ticket->subject)
+@section('page', trans('brazidesk::lang.show-ticket-title') . trans('brazidesk::lang.colon') . $ticket->subject)
 @section('content')
-        @include('ticketit::shared.header')
-        @include('ticketit::tickets.partials.ticket_body')
+        @include('brazidesk::shared.header')
+        @include('brazidesk::tickets.partials.ticket_body')
         <br>
-        <h2>{{ trans('ticketit::lang.comments') }}</h2>
-        @include('ticketit::tickets.partials.comments')
+        <h2>{{ trans('brazidesk::lang.comments') }}</h2>
+        @include('brazidesk::tickets.partials.comments')
         {!! $comments->render() !!}
-        @include('ticketit::tickets.partials.comment_form')
+        @include('brazidesk::tickets.partials.comment_form')
 @endsection
 
 @section('footer')
@@ -15,7 +15,7 @@
         $(document).ready(function() {
             $( ".deleteit" ).click(function( event ) {
                 event.preventDefault();
-                if (confirm("{!! trans('ticketit::lang.show-ticket-js-delete') !!}" + $(this).attr("node") + " ?"))
+                if (confirm("{!! trans('brazidesk::lang.show-ticket-js-delete') !!}" + $(this).attr("node") + " ?"))
                 {
                     var form = $(this).attr("form");
                     $("#" + form).submit();
@@ -43,5 +43,5 @@
             });
         });
     </script>
-    @include('ticketit::tickets.partials.summernote')
+    @include('brazidesk::tickets.partials.summernote')
 @append

@@ -1,12 +1,12 @@
 <?php
 
-namespace Brazidev\Ticketit\Controllers;
+namespace Brazidev\Brazidesk\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brazidev\Ticketit\Models\Agent;
-use Brazidev\Ticketit\Models\Setting;
+use Brazidev\Brazidesk\Models\Agent;
+use Brazidev\Brazidesk\Models\Setting;
 
 class AdministratorsController extends Controller
 {
@@ -14,14 +14,14 @@ class AdministratorsController extends Controller
     {
         $administrators = Agent::admins();
 
-        return view('ticketit::admin.administrator.index', compact('administrators'));
+        return view('brazidesk::admin.administrator.index', compact('administrators'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::admin.administrator.create', compact('users'));
+        return view('brazidesk::admin.administrator.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -29,27 +29,27 @@ class AdministratorsController extends Controller
         $administrators_list = $this->addAdministrators($request->input('administrators'));
         $administrators_names = implode(',', $administrators_list);
 
-        Session::flash('status', trans('ticketit::lang.administrators-are-added-to-administrators', ['names' => $administrators_names]));
+        Session::flash('status', trans('brazidesk::lang.administrators-are-added-to-administrators', ['names' => $administrators_names]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AdministratorsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AdministratorsController@index');
     }
 
     public function update($id, Request $request)
     {
         $this->syncAdministratorCategories($id, $request);
 
-        Session::flash('status', trans('ticketit::lang.administrators-joined-categories-ok'));
+        Session::flash('status', trans('brazidesk::lang.administrators-joined-categories-ok'));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AdministratorsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AdministratorsController@index');
     }
 
     public function destroy($id)
     {
         $administrator = $this->removeAdministrator($id);
 
-        Session::flash('status', trans('ticketit::lang.administrators-is-removed-from-team', ['name' => $administrator->name]));
+        Session::flash('status', trans('brazidesk::lang.administrators-is-removed-from-team', ['name' => $administrator->name]));
 
-        return redirect()->action('\Brazidev\Ticketit\Controllers\AdministratorsController@index');
+        return redirect()->action('\Brazidev\Brazidesk\Controllers\AdministratorsController@index');
     }
 
     /**
@@ -63,7 +63,7 @@ class AdministratorsController extends Controller
     {
         $users = Agent::find($user_ids);
         foreach ($users as $user) {
-            $user->ticketit_admin = true;
+            $user->brazidesk_admin = true;
             $user->save();
             $users_list[] = $user->name;
         }
@@ -81,7 +81,7 @@ class AdministratorsController extends Controller
     public function removeAdministrator($id)
     {
         $administrator = Agent::find($id);
-        $administrator->ticketit_admin = false;
+        $administrator->brazidesk_admin = false;
         $administrator->save();
 
         // Remove him from tickets categories as well

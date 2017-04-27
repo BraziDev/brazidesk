@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazidev\Ticketit\Models;
+namespace Brazidev\Brazidesk\Models;
 
 use App\User;
 use Auth;
@@ -22,9 +22,9 @@ class Agent extends User
     public function scopeAgents($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_agent', '1')->paginate($paginate, ['*'], 'agents_page');
+            return $query->where('brazidesk_agent', '1')->paginate($paginate, ['*'], 'agents_page');
         } else {
-            return $query->where('ticketit_agent', '1');
+            return $query->where('brazidesk_agent', '1');
         }
     }
 
@@ -41,9 +41,9 @@ class Agent extends User
     public function scopeAdmins($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_admin', '1')->paginate($paginate, ['*'], 'admins_page');
+            return $query->where('brazidesk_admin', '1')->paginate($paginate, ['*'], 'admins_page');
         } else {
-            return $query->where('ticketit_admin', '1')->get();
+            return $query->where('brazidesk_admin', '1')->get();
         }
     }
 
@@ -60,9 +60,9 @@ class Agent extends User
     public function scopeUsers($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_agent', '0')->paginate($paginate, ['*'], 'users_page');
+            return $query->where('brazidesk_agent', '0')->paginate($paginate, ['*'], 'users_page');
         } else {
-            return $query->where('ticketit_agent', '0')->get();
+            return $query->where('brazidesk_agent', '0')->get();
         }
     }
 
@@ -78,9 +78,9 @@ class Agent extends User
     public function scopeAgentsLists($query)
     {
         if (version_compare(app()->version(), '5.2.0', '>=')) {
-            return $query->where('ticketit_agent', '1')->pluck('name', 'id')->toArray();
+            return $query->where('brazidesk_agent', '1')->pluck('name', 'id')->toArray();
         } else { // if Laravel 5.1
-            return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
+            return $query->where('brazidesk_agent', '1')->lists('name', 'id')->toArray();
         }
     }
 
@@ -93,14 +93,14 @@ class Agent extends User
     {
         if (isset($id)) {
             $user = User::find($id);
-            if ($user->ticketit_agent) {
+            if ($user->brazidesk_agent) {
                 return true;
             }
 
             return false;
         }
         if (auth()->check()) {
-            if (auth()->user()->ticketit_agent) {
+            if (auth()->user()->brazidesk_agent) {
                 return true;
             }
         }
@@ -114,7 +114,7 @@ class Agent extends User
     public static function isAdmin()
     {
         if (auth()->check()) {
-            if (auth()->user()->ticketit_admin) {
+            if (auth()->user()->brazidesk_admin) {
                 return true;
             } elseif (!is_null(Setting::where('slug', 'admin_ids')->first()) && in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
                 return true;
@@ -131,7 +131,7 @@ class Agent extends User
      */
     public static function isAssignedAgent($id)
     {
-        if (auth()->check() && Auth::user()->ticketit_agent) {
+        if (auth()->check() && Auth::user()->brazidesk_agent) {
             if (Auth::user()->id == Ticket::find($id)->agent->id) {
                 return true;
             }
@@ -161,7 +161,7 @@ class Agent extends User
      */
     public function categories()
     {
-        return $this->belongsToMany('Brazidev\Ticketit\Models\Category', 'ticketit_categories_users', 'user_id', 'category_id');
+        return $this->belongsToMany('Brazidev\Brazidesk\Models\Category', 'brazidesk_categories_users', 'user_id', 'category_id');
     }
 
     /**
@@ -170,9 +170,9 @@ class Agent extends User
     public function agentTickets($complete = false)
     {
         if ($complete) {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
         } else {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'agent_id')->whereNull('completed_at');
         }
     }
 
@@ -184,18 +184,18 @@ class Agent extends User
     public function userTickets($complete = false)
     {
         if ($complete) {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNotNull('completed_at');
         } else {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNull('completed_at');
         }
     }
 
     public function tickets($complete = false)
     {
         if ($complete) {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNotNull('completed_at');
         } else {
-            return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+            return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNull('completed_at');
         }
     }
 
@@ -228,7 +228,7 @@ class Agent extends User
      */
     public function agentTotalTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'agent_id');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'agent_id');
     }
 
     /**
@@ -236,7 +236,7 @@ class Agent extends User
      */
     public function agentCompleteTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
     }
 
     /**
@@ -244,7 +244,7 @@ class Agent extends User
      */
     public function agentOpenTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'agent_id')->whereNull('completed_at');
     }
 
     /**
@@ -252,7 +252,7 @@ class Agent extends User
      */
     public function userTotalTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id');
     }
 
     /**
@@ -260,7 +260,7 @@ class Agent extends User
      */
     public function userCompleteTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNotNull('completed_at');
     }
 
     /**
@@ -268,6 +268,6 @@ class Agent extends User
      */
     public function userOpenTickets()
     {
-        return $this->hasMany('Brazidev\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+        return $this->hasMany('Brazidev\Brazidesk\Models\Ticket', 'user_id')->whereNull('completed_at');
     }
 }

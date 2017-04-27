@@ -12,7 +12,7 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticketit_settings', function (Blueprint $table) {
+        Schema::create('brazidesk_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('lang')->unique()->nullable();
             $table->string('slug')->unique()->index();
@@ -29,6 +29,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ticketit_settings');
+        Schema::drop('brazidesk_settings');
     }
 }

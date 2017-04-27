@@ -1,10 +1,10 @@
 <?php
 
-namespace Brazidev\Ticketit\Console;
+namespace Brazidev\Brazidesk\Console;
 
 use Illuminate\Console\Command;
-use Brazidev\Ticketit\Models\Comment;
-use Brazidev\Ticketit\Models\Ticket;
+use Brazidev\Brazidesk\Models\Comment;
+use Brazidev\Brazidesk\Models\Ticket;
 
 class Htmlify extends Command
 {
@@ -13,7 +13,7 @@ class Htmlify extends Command
      *
      * @var string
      */
-    protected $signature = 'ticketit:htmlify';
+    protected $signature = 'brazidesk:htmlify';
 
     /**
      * The console command description.

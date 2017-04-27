@@ -1,15 +1,15 @@
-<table class="table table-condensed table-stripe ddt-responsive" class="ticketit-table">
+<table class="table table-condensed table-stripe ddt-responsive" class="brazidesk-table">
     <thead>
         <tr>
-            <td>{{ trans('ticketit::lang.table-id') }}</td>
-            <td>{{ trans('ticketit::lang.table-subject') }}</td>
-            <td>{{ trans('ticketit::lang.table-status') }}</td>
-            <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
-            <td>{{ trans('ticketit::lang.table-agent') }}</td>
+            <td>{{ trans('brazidesk::lang.table-id') }}</td>
+            <td>{{ trans('brazidesk::lang.table-subject') }}</td>
+            <td>{{ trans('brazidesk::lang.table-status') }}</td>
+            <td>{{ trans('brazidesk::lang.table-last-updated') }}</td>
+            <td>{{ trans('brazidesk::lang.table-agent') }}</td>
           @if( $u->isAgent() || $u->isAdmin() )
-            <td>{{ trans('ticketit::lang.table-priority') }}</td>
-            <td>{{ trans('ticketit::lang.table-owner') }}</td>
-            <td>{{ trans('ticketit::lang.table-category') }}</td>
+            <td>{{ trans('brazidesk::lang.table-priority') }}</td>
+            <td>{{ trans('brazidesk::lang.table-owner') }}</td>
+            <td>{{ trans('brazidesk::lang.table-category') }}</td>
           @endif
         </tr>
     </thead>

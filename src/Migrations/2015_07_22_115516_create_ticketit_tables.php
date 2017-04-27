@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTicketitTables extends Migration
+class CreateBrazideskTables extends Migration
 {
     /**
      * Run the migrations.
@@ -12,30 +12,30 @@ class CreateTicketitTables extends Migration
      */
     public function up()
     {
-        Schema::create('ticketit_statuses', function (Blueprint $table) {
+        Schema::create('brazidesk_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('color');
         });
 
-        Schema::create('ticketit_priorities', function (Blueprint $table) {
+        Schema::create('brazidesk_priorities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('color');
         });
 
-        Schema::create('ticketit_categories', function (Blueprint $table) {
+        Schema::create('brazidesk_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('color');
         });
 
-        Schema::create('ticketit_categories_users', function (Blueprint $table) {
+        Schema::create('brazidesk_categories_users', function (Blueprint $table) {
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
         });
 
-        Schema::create('ticketit', function (Blueprint $table) {
+        Schema::create('brazidesk', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject');
             $table->longText('content');
@@ -47,7 +47,7 @@ class CreateTicketitTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ticketit_comments', function (Blueprint $table) {
+        Schema::create('brazidesk_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
             $table->integer('user_id')->unsigned();
@@ -55,7 +55,7 @@ class CreateTicketitTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ticketit_audits', function (Blueprint $table) {
+        Schema::create('brazidesk_audits', function (Blueprint $table) {
             $table->increments('id');
             $table->text('operation');
             $table->integer('user_id')->unsigned();
@@ -71,12 +71,12 @@ class CreateTicketitTables extends Migration
      */
     public function down()
     {
-        Schema::drop('ticketit_audits');
-        Schema::drop('ticketit_comments');
-        Schema::drop('ticketit');
-        Schema::drop('ticketit_categories_users');
-        Schema::drop('ticketit_categories');
-        Schema::drop('ticketit_priorities');
-        Schema::drop('ticketit_statuses');
+        Schema::drop('brazidesk_audits');
+        Schema::drop('brazidesk_comments');
+        Schema::drop('brazidesk');
+        Schema::drop('brazidesk_categories_users');
+        Schema::drop('brazidesk_categories');
+        Schema::drop('brazidesk_priorities');
+        Schema::drop('brazidesk_statuses');
     }
 }

@@ -4,17 +4,17 @@
 @extends($email)
 
 @section('subject')
-	{{ trans('ticketit::email/globals.comment') }}
+	{{ trans('brazidesk::email/globals.comment') }}
 @stop
 
 @section('link')
 	<a style="color:#ffffff" href="{{ route($setting->grab('main_route').'.show', $ticket->id) }}">
-		{{ trans('ticketit::email/globals.view-ticket') }}
+		{{ trans('brazidesk::email/globals.view-ticket') }}
 	</a>
 @stop
 
 @section('content')
-	{!! trans('ticketit::email/comment.data', [
+	{!! trans('brazidesk::email/comment.data', [
 	    'name'      =>  $comment->user->name,
 	    'subject'   =>  $ticket->subject,
 	    'status'    =>  $ticket->status->name,
